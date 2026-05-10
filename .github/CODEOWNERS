@@ -18,3 +18,7 @@ src/db.ts            @oaslananka
 # CI/CD pipeline changes
 .azure/              @oaslananka
 azure-pipelines.yml  @oaslananka
+.github/            @oaslananka
+.github/workflows/  @oaslananka
+SECURITY.md         @oaslananka
+release-please-config.json @oaslananka

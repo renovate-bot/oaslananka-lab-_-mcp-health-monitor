@@ -5,6 +5,9 @@
 
 [![npm version](https://img.shields.io/npm/v/mcp-health-monitor)](https://www.npmjs.com/package/mcp-health-monitor)
 [![npm downloads](https://img.shields.io/npm/dm/mcp-health-monitor)](https://www.npmjs.com/package/mcp-health-monitor)
+[![CI](https://github.com/oaslananka-lab/mcp-health-monitor/actions/workflows/ci.yml/badge.svg)](https://github.com/oaslananka-lab/mcp-health-monitor/actions/workflows/ci.yml)
+[![Release](https://github.com/oaslananka-lab/mcp-health-monitor/actions/workflows/release.yml/badge.svg)](https://github.com/oaslananka-lab/mcp-health-monitor/actions/workflows/release.yml)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/oaslananka-lab/mcp-health-monitor/badge)](https://securityscorecards.dev/viewer/?uri=github.com/oaslananka-lab/mcp-health-monitor)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20-brightgreen)](https://nodejs.org)
 
@@ -65,7 +68,7 @@ register_azure_pipelines name="mcp-health-monitor" organization="oaslananka" pro
 ```
 
 PAT tokens are stored as base64 in the local SQLite database for v1.0. This is encoding, not
-encryption. See [credential storage notes](https://github.com/oaslananka/mcp-health-monitor/blob/main/docs/security.md).
+encryption. See [credential storage notes](SECURITY.md).
 
 ## Alert Configuration
 

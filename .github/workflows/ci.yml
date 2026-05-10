@@ -1,21 +1,64 @@
-# Azure Pipelines is the authoritative CI for this repository.
-# This GitHub workflow stays intentionally minimal as a PR smoke test.
-name: CI (GitHub)
+name: CI
 
 on:
-  pull_request:
+  push:
     branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
-  smoke:
-    name: Smoke Test
-    runs-on: ubuntu-latest
+  validate:
+    name: Validate
+    runs-on: ubuntu-24.04
+    if: github.event_name != 'pull_request' || !github.event.pull_request.draft
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
         with:
-          node-version: '20'
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run build
-      - run: npm test
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Install
+        run: npm ci
+      - name: Rebuild native modules
+        run: npm rebuild better-sqlite3
+      - name: Format check
+        run: npm run format:check
+      - name: Lint source
+        run: npm run lint
+      - name: Lint tests
+        run: npm run lint:test
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Unit tests
+        run: npm test
+      - name: Integration tests
+        run: npm run test:integration
+      - name: Build
+        run: npm run build
+      - name: Pack sanity
+        run: npm pack --dry-run
+      - name: MCP metadata check
+        run: node scripts/prepublish-check.mjs
+      - name: Coverage
+        run: npm run test:coverage
+      - name: Upload coverage to Codecov
+        if: always()
+        uses: codecov/codecov-action@b9fd7d16f6d7d1b5d2bec1a2887e65ceed900238
+        with:
+          fail_ci_if_error: false
+          flags: unit
+      - name: SonarQube Scan
+        if: github.event_name != 'pull_request' || !github.event.pull_request.draft
+        uses: SonarSource/sonarqube-scan-action@13990a695682794b53148ff9f6a8b6e22e43955e
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        continue-on-error: true

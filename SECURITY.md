@@ -4,19 +4,28 @@
 
 | Version | Supported |
 | ------- | --------- |
-| 1.x     | Yes       |
+| 1.x     | ✅        |
 
 ## Reporting a Vulnerability
 
-Use GitHub Private Vulnerability Reporting for this repository.
+Report via GitHub Security Advisories:
+https://github.com/oaslananka-lab/mcp-health-monitor/security/advisories/new
 
-- Do not open a public GitHub issue for suspected security vulnerabilities.
-- Include a clear impact summary, affected version, reproduction steps, and any proposed mitigation.
+Do not open public issues for security vulnerabilities.
 
-## Current Sensitive Data Handling
+Include a clear impact summary, affected version, reproduction steps, and any
+proposed mitigation.
 
-- Azure DevOps PAT tokens are stored as base64 in the local SQLite database in v1.x.
-- MCP server URLs, commands, and tags are stored locally in SQLite.
-- Webhook delivery is not shipped in v1.0.x.
+## Threat Model Notes
+
+- Azure DevOps PAT tokens are stored as base64 in the local SQLite database in
+  v1.x. This is encoding, not encryption. Use least-privilege PATs and rotate
+  them if the database leaves the trusted machine.
+- MCP server URLs, commands, tags, health history, and Azure DevOps pipeline
+  history are stored locally in SQLite.
+- Keep SQLite database files outside version-controlled directories.
+- The primary transport is stdio. If HTTP transport is enabled for local
+  diagnostics, bind it to loopback or place it behind an authenticated reverse
+  proxy.
 
 For implementation details and storage notes, see `docs/security.md`.
