@@ -65,7 +65,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Upload release asset
-        run: gh release upload "${{ needs.release-please.outputs.tag_name }}" *.tgz
+        run: gh release upload "${{ needs.release-please.outputs.tag_name }}" ./*.tgz
         env:
           GH_TOKEN: ${{ github.token }}
       - name: Attest build provenance

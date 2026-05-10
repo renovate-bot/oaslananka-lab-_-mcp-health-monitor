@@ -48,6 +48,8 @@ jobs:
         run: npm pack --dry-run
       - name: MCP metadata check
         run: node scripts/prepublish-check.mjs
+      - name: Rebuild native modules for coverage
+        run: npm rebuild better-sqlite3
       - name: Coverage
         run: npm run test:coverage
       - name: Upload coverage to Codecov
