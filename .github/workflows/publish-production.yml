@@ -89,7 +89,7 @@ jobs:
       id-token: write
     steps:
       - name: Download package artifact
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
         with:
           name: npm-package
           path: publish-artifact
@@ -149,7 +149,7 @@ jobs:
               cat "${publish_log}"
               exit 0
             fi
-            if grep -Eiq "(E401|E403|ENEEDAUTH|401|403|forbidden|authorization|auth|permission denied|not authorized|EPERM)" "${publish_log}"; then
+            if grep -Eiq "(E401|E403|ENEEDAUTH|HTTP[[:space:]/_-]*401|HTTP[[:space:]/_-]*403|(^|[^[:alnum:]])401([^[:alnum:]]|$)|(^|[^[:alnum:]])403([^[:alnum:]]|$)|(^|[^[:alnum:]])forbidden([^[:alnum:]]|$)|authorization|permission[[:space:]]+denied|not[[:space:]]+authorized)" "${publish_log}"; then
               if [[ -z "${token}" ]]; then
                 echo "NPM_TRUSTED_PUBLISHING_NOT_CONFIGURED" >&2
                 echo "NPM_TOKEN_SECRET_MISSING" >&2
