@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 Versioning: [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
+## [1.0.5](https://github.com/oaslananka-lab/mcp-health-monitor/compare/mcp-health-monitor-v1.0.4...mcp-health-monitor-v1.0.5) (2026-05-11)
+
+
+### Bug Fixes
+
+* **publish:** preserve npm publish audit output ([c88b376](https://github.com/oaslananka-lab/mcp-health-monitor/commit/c88b3769dea2a9d4be95bddc32c4697b0737be70))
+
 ## [1.0.4](https://github.com/oaslananka-lab/mcp-health-monitor/compare/mcp-health-monitor-v1.0.3...mcp-health-monitor-v1.0.4) (2026-05-10)
 
 
