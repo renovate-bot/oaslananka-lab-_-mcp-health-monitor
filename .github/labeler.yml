@@ -1,6 +1,9 @@
 ci:
   - changed-files:
-      - any-glob-to-any-file: '.github/workflows/**'
+      - any-glob-to-any-file:
+          - '.github/workflows/**'
+          - '.github/labeler.yml'
+          - 'scripts/prepublish-check.*'
 docs:
   - changed-files:
       - any-glob-to-any-file:
@@ -28,3 +31,5 @@ release:
           - 'release-please-config.json'
           - '.release-please-manifest.json'
           - 'CHANGELOG.md'
+          - 'mcp.json'
+          - 'server.json'
